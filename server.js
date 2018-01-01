@@ -49,6 +49,7 @@ app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-server.listen( port , () => console.log('Running'));
+server.listen( port , function() {
+  console.log('Node app is running on port', app.get('port'))});
 
 

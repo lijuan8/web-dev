@@ -1,0 +1,16 @@
+Assignment 1:
+0) install angular cli
+ $ npm install -g @angular/cli
+ setup nodemon
+ $ npm install -g nodemon
+1) git clone https://github.com/jannunzi/angular-four-MEAN-seed
+2) mv angular-four-MEAN-seed webdev
+3) cd webdev
+4) npm install
+5) mongod
+6) run the front end using angular 4, this will start a local embedded server that will serve the Angular front end. You can stop the front end with Ctrl+c twice
+   $ npm start
+7) in a separate terminal, run the backend using Node.js. you can stop the backend with Ctrl+C
+   $ nodemon server.js
+
+
