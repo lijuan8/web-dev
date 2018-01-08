@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Website} from '../../models/website.model.client';
-import {WEBSITES} from '../../services/website.mock';
+// import {WEBSITES} from '../../services/website.mock';
+import {WebsiteService} from '../../services/website.service.client';
 
 @Component({
   selector: 'app-website-list',
@@ -9,11 +10,12 @@ import {WEBSITES} from '../../services/website.mock';
 })
 export class WebsiteListComponent implements OnInit {
 
-  websites: Website[] = WEBSITES;
-
-  constructor() { }
+  // websites: Website[] = WEBSITES;
+  websites: Website[] = [];
+  constructor(private websiteService: WebsiteService) { }
 
   ngOnInit() {
+    this.websites = this.websiteService.findAllWebSites();
   }
 
 }

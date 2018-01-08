@@ -17,12 +17,12 @@ export class LoginComponent implements OnInit {
 
   login(username: String, password: String) {
     //alert('username: ' + username);
-   // if (username === 'alice' && password == "qqq") {
-      const user: User = this.userService.findUserByCredential(username, password);
-      if (user) {
-        this.router.navigate(['/profile', user._id ]);
-      }
-   // }
+      this.userService.findUserByCredentials(username, this.password)
+        .subscribe((user: User) => {
+        if (user) {
+          this.router.navigate(['/profile', user._id ]);
+        }
+      });
   }
 
   ngOnInit(){
