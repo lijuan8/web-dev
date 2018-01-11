@@ -9,8 +9,9 @@ const appRoutes: Routes = [
   {path: 'widget', component: WigetListComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'profile/:userId', component: ProfileComponent},
-  {path: 'profile/:userId/website', component: WebsiteListComponent}
+  {path: 'profile/:userId/website', component: WebsiteListComponent},
+  {path: 'profile/:userId', component: ProfileComponent}
+
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

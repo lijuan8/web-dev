@@ -13,7 +13,7 @@ import {UserService} from './services/user.service.client';
 import {WebsiteListComponent} from './views/website-list/website-list.component';
 import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
-import {WebsiteService} from './services/website.service.client';
+import {WebsiteServiceClient} from './services/website.service.client';
 import {HttpModule} from '@angular/http';
 import {WidgetService} from './services/widget.service.client';
 import { WigetListComponent } from './views/widget/wiget-list/wiget-list.component';
@@ -39,7 +39,7 @@ import { WidgetIframeComponent } from './views/widget/widget-iframe/widget-ifram
   imports: [
     BrowserModule, routing, FormsModule, HttpModule
   ],
-  providers: [UserService, WebsiteService, WidgetService],
+  providers: [UserService, WidgetService, WebsiteServiceClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

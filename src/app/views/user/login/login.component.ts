@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   login(username: String, password: String) {
     //alert('username: ' + username);
-      this.userService.findUserByCredentials(username, this.password)
+      this.userService
+        .findUserByCredentials(username, this.password)
         .subscribe((user: User) => {
         if (user) {
           this.router.navigate(['/profile', user._id ]);
