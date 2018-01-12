@@ -21,6 +21,7 @@ import { WidgetHeadingComponent } from './views/widget/widget-heading/widget-hea
 import { WidgetParagraphComponent } from './views/widget/widget-paragraph/widget-paragraph.component';
 import { ToUpperCasePipe } from './pipes/to-upper-case.pipe';
 import { WidgetIframeComponent } from './views/widget/widget-iframe/widget-iframe.component';
+import { SortableDirective } from './views/sortable.directive';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { WidgetIframeComponent } from './views/widget/widget-iframe/widget-ifram
     WidgetHeadingComponent,
     WidgetParagraphComponent,
     ToUpperCasePipe,
-    WidgetIframeComponent
+    WidgetIframeComponent,
+    SortableDirective
   ],
   imports: [
     BrowserModule, routing, FormsModule, HttpModule

@@ -15,7 +15,7 @@ export class UserService {
   }
 */
 
-  findUserByCredentials(username, password) {
+  login(username, password) {
       return this.http.get('http://localhost:3100/api/user?username=' + username + '&password=' + password)
         .map((response: Response) => {
           return response.json();

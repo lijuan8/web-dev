@@ -12,18 +12,19 @@ export class LoginComponent implements OnInit {
   username: String;
   password: String;
   hello: String = 'hello from components!';
+  errorFlag: boolean;
 
   constructor(private userService: UserService, private router: Router) {}
 
   login(username: String, password: String) {
-    //alert('username: ' + username);
-      this.userService
-        .findUserByCredentials(username, this.password)
-        .subscribe((user: User) => {
-        if (user) {
-          this.router.navigate(['/profile', user._id ]);
-        }
-      });
+      this.userService.login(username, this.password)
+        .subscribe((data:any) => {
+          this.errorFlag = false;
+          this.router.navigate(['/profile']);
+        },
+          (error: any) => {
+          this.errorFlag = true;
+          });
   }
 
   ngOnInit(){
