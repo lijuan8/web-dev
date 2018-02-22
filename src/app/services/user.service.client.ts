@@ -14,6 +14,20 @@ export class UserService {
     });
   }
 */
+  createUser(user){
+    return this.http.post('http://localhost:3100/api/user', user)
+      .map((response: Response) => {
+        return response.json();
+    });
+  }
+
+  findUserByUserName(username: String){
+    var url = 'http://localhost:3100/api/user?username='+username;
+    return this.http.get(url)
+      .map((response: Response) => {
+         return response.json();
+    })
+  }
 
   login(username, password) {
       return this.http.get('http://localhost:3100/api/user?username=' + username + '&password=' + password)
@@ -30,6 +44,9 @@ export class UserService {
     }
 
     updateUser(user) {
-      return user;
+      return this.http.put('http://localhost:3100/api/user/' +user._id, user)
+        .map((response: Response) => {
+          return response.json();
+        })
     }
 }

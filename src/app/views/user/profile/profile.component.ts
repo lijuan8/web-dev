@@ -15,8 +15,9 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   updateUser(user) {
-    console.log(user);
-    this.user = this.userService.updateUser(user);
+    this.userService.updateUser(user).subscribe((status)=>{
+       console.log(status);
+    });
   }
   ngOnInit() {
       this.route.params.subscribe(params => {

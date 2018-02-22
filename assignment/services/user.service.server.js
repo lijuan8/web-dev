@@ -1,9 +1,14 @@
 
 module.exports = function (app) {
+
+  var userModel = require("../models/user/user.model.server");
+
   app.get("/api/user/hello", helloUser);
   app.get("/api/user/:userId", findUserById)
   //app.get("/api/user", findAllUsers);
   app.get("/api/user", findUsers);
+  app.post("/api/user", createUser);
+  app.put("/api/user/:userId", updateUser);
 
   var users = [
     {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonderland"  },
@@ -12,16 +17,33 @@ module.exports = function (app) {
     {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
   ];
 
+  function updateUser(req, res){
+    var userId = req.params.userId;
+    var user = req.body;
+
+    userModel.updateUser(userId, user)
+      .then(function(status){
+        res.send(status);
+      })
+  }
+
+  function createUser(req, res){
+    var newUser = req.body;
+    userModel.createUser(newUser)
+      .then(function(user){
+        res.json(user);
+      })
+  }
+
   function helloUser(req, res) {
     res.send("Hello from user service!");
   }
 
   function findUserById(req, res){
-    var userId = req.params["userId"];
-    var user = users.find(function (user) {
-       return user._id === userId;
-    });
-    res.json(user);
+    var userId = req.params["userId"]
+    userModel.findUserById(userId).then(function (user){
+      res.json(user);
+    })
   }
   function findAllUsers(req, res){
     res.json(users);
@@ -31,24 +53,18 @@ module.exports = function (app) {
     var username = req.query["username"];
     var password = req.query["password"];
     if (username && password){
-      var user = users.find(function (user) {
-          return user.username === username && user.password === password;
-      });
-      if (user){
+      var promise = userModel.findUserByCredentials(username, password);
+      promise.then(function(user){
         res.json(user);
-      } else {
-        res.json({});
-      }
-    } else if (username){
-      var user = users.find(function (user) {
-        return user.username === username;
-      });
-      if (user) {
-        res.json(user);
-      } else {
-        res.json({});
-      }
+        //console.log(user);
+      })
       return;
+    } else if (username){
+        userModel.findUserByUserName(username)
+           .then(function(user){
+             res.json(user);
+        })
+        return;
     }
     res.json(users);
   }

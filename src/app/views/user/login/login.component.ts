@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
-import {User} from '../../../models/user.model.client';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +17,9 @@ export class LoginComponent implements OnInit {
 
   login(username: String, password: String) {
       this.userService.login(username, this.password)
-        .subscribe((data:any) => {
+        .subscribe((user) => {
           this.errorFlag = false;
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/profile',  user._id]);
         },
           (error: any) => {
           this.errorFlag = true;

@@ -1,3 +1,4 @@
+
 module.exports = function(app){
   var WEBSITES = require("./website.mock.server");
 
@@ -6,6 +7,8 @@ module.exports = function(app){
   app.delete("/api/user/:userId/website/:websiteId", deleteWebsite);
   app.get("/api/user/:userId/website/:websiteId", findWebsiteById);
   app.put("/api/user/:userId/website/:websiteId", updateWebsiteById);
+
+  var websiteModel = require('../models/website/website.model.server');
 
   function updateWebsiteById(req, res){
     var userId = req.params['userId'];
@@ -43,17 +46,27 @@ module.exports = function(app){
   function createWebsite(req, res){
     var userId = req.params['userId'];
     var website = req.body;
-    website._id = (new Date()).getTime() + "";
     website.developerId = userId;
-    WEBSITES.push(website);
-    var websites = getWebsitesForUserId(userId);
-    res.json(websites);
+    delete website._id;
+    websiteModel.createWebsite(website)
+      .then(function (website){
+        websiteModel.findWebsitesForUser(userId)
+          .then(function (websites){
+            res.json(websites);
+          })
+      }, function(err){
+        console.log(err);
+      });
   }
 
   function findWebsiteForUser(req, res) {
     var userId = req.params['userId'];
-    var websites= getWebsitesForUserId(userId);
-    res.json(websites);
+    websiteModel.findWebsitesForUser(userId)
+      .then(function(websites){
+        res.json(websites);
+      })
+   // var websites= getWebsitesForUserId(userId);
+   // res.json(websites);
   }
 
    function  getWebsitesForUserId(userId) {

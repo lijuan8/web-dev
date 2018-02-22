@@ -13,12 +13,12 @@
 <input [(ngModel)]="user.password" type="password"/>
 <br/>
 
-
-
-<input [(ngModel)]="user.firstName"/>
+<label for="first">First Name</label>
+<input [(ngModel)]="user.firstname" id="first"/>
 <br/>
 
-<input [(ngModel)]="user.lastName"/>
+<label for="last">Last Name</label>
+<input [(ngModel)]="user.lastname" id="last"/>
 <br/>
 
 <button (click)="updateUser(user)">Update</button>
